@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Gym Nutritionist</string>
+    <string name="result_text" translatable="false">%1$s (%2$f)</string>
+    <string-array name="lstgender">
+        <item>Male</item>
+        <item>Female</item>
+
+
+    </string-array>
+    <string-array name="lstActivity">
+        <item>Little or No exercise</item>
+        <item>Light exercise/Sports 1-3 days/week</item>
+        <item>Medium exercise/Sports 3-5 days/week</item>
+        <item>Hard exercise/Sports 6-7 days/week</item>
+        <item>Intense exercise/Sports,Physical job or Twice a days</item>
+    </string-array>
+
+    <string-array name="sleep">
+
+        <item>6 hour</item>
+        <item>7 hour</item>
+        <item>8 hour</item>
+
+
+    </string-array>
+
+</resources>
