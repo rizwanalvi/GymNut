@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,13 +22,25 @@ public class DashboardActivity extends AppCompatActivity {
     TextView _txtMaintance,_txtName;
     double _BMR =0.0;
     double _BMI =0.0;
-    CardView _menuMealLog,_menuNutAnalysis = null;
+    CardView _menuMealLog,_menuNutAnalysis,_menuProfile = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        SQLiteDatabase db = openOrCreateDatabase("nutdb.db",MODE_PRIVATE,null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS Nutrition(NUTID INTEGER PRIMARY KEY AUTOINCREMENT,FOODNAME TEXT,PROTIEN FLOAT,CARB FLOAT,FAT FLOAT,CAL FLOAT,SERVING FLOAT,FIBER FLOAT,SUGAR FLOAT,DT TEXT,MEALTYPE TEXT)");
         _menuMealLog = findViewById(R.id.menuMealLog);
+        _menuProfile = findViewById(R.id.menuProfile);
+
         _menuNutAnalysis = findViewById(R.id.menuNutAnalysis);
+        _menuProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent _mainAct = new Intent(DashboardActivity.this,MainFragActivity.class);
+                _mainAct.putExtra("Edit","true");
+                startActivity(_mainAct);
+            }
+        });
         _menuNutAnalysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,6 +53,7 @@ public class DashboardActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent _mainAct = new Intent(DashboardActivity.this,MainActivity.class);
                 startActivity(_mainAct);
+
             }
         });
         _txtMaintance = findViewById(R.id.txtMaintance);

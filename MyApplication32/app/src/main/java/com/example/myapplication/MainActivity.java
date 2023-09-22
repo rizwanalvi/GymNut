@@ -1,14 +1,18 @@
 package com.example.myapplication;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -25,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,8 +51,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -66,9 +73,15 @@ public class MainActivity extends AppCompatActivity {
     String _protien="";
     String _carbs="";
     String _name ="";
+    String _fiber ="";
+    String _sugar ="";
+    String _serving ="";
+    String _fat ="";
     TextView[] textView;
     private ListView _lstFood=null;
     private ArrayAdapter<String> _adapter =null;
+    SQLiteDatabase db =null;
+    String MealType= "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
         _imgObject = findViewById(R.id.imgObject);
         _txtResult = findViewById(R.id.txtResult);
         _lstFood = findViewById(R.id.lstFood);
+        db = openOrCreateDatabase("nutdb.db",MODE_PRIVATE,null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS Nutrition(NUTID INTEGER PRIMARY KEY AUTOINCREMENT,FOODNAME TEXT,PROTIEN FLOAT,CARB FLOAT,FAT FLOAT,CAL FLOAT,SERVING FLOAT,FIBER FLOAT,SUGAR FLOAT,DT TEXT,MEALTYPE TEXT)");
         al = new ArrayList<String>();
         _lstFood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -201,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
            Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
-
             Uri selectedImageUri = data.getData();
             _imgObject.setImageBitmap(imageBitmap);
 //            try {
@@ -212,8 +226,32 @@ public class MainActivity extends AppCompatActivity {
 //                e.printStackTrace();
 //            }
 //            _imgObject.setImageURI(selectedImageUri);
+            showAlertDialog();
         }
     }
+    private void showAlertDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        alertDialog.setTitle("AlertDialog");
+        String[] items = {"Break Fast", "Brunch", "Lunch", "Snack Time"};
+        int checkedItem = 1;
+        alertDialog.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MealType = items[which].toString();
+                Log.e( "MealType: ",MealType );
+            }
+        });
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+    }
+
     private Bitmap ARGBBitmap(Bitmap img) {
         return img.copy(Bitmap.Config.ARGB_8888,true);
     }
@@ -259,6 +297,27 @@ public class MainActivity extends AppCompatActivity {
                _name =     _jsoObj.getString("name");
                 _protien =    _jsoObj.getString("protein_g");
                _carbs =    _jsoObj.getString("carbohydrates_total_g");
+               _fiber =    _jsoObj.getString("fiber_g");
+                _fat =    _jsoObj.getString("fat_total_g");
+               _sugar =    _jsoObj.getString("sugar_g");
+               _serving =    _jsoObj.getString("serving_size_g");
+
+                    ContentValues _value = new ContentValues();
+                    _value.put("FOODNAME",_name);
+                    _value.put("PROTIEN",Float.valueOf(_protien));
+                    _value.put("CARB",Float.valueOf(_carbs));
+                    _value.put("FAT",Float.valueOf(_fat));
+                    _value.put("CAL",Float.valueOf(_calories));
+                    _value.put("SERVING",Float.valueOf(_serving));
+                    _value.put("FIBER",Float.valueOf(_fiber));
+                    _value.put("SUGAR",Float.valueOf(_sugar));
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String date = sdf.format(new Date());
+
+                    _value.put("DT",date);
+                    _value.put("MEALTYPE",MealType);
+                    db.insert("Nutrition",null,_value);
+
                String _nutration= String.format("%s,%s,%s,%s",_name.toUpperCase(),_protien.toUpperCase(),_carbs.toUpperCase(),_calories.toUpperCase());
                Log.e( "onPostExecute: ",_nutration );
                al.add(_nutration);

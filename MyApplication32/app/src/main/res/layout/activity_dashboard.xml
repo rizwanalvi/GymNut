@@ -183,7 +183,7 @@
             >
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/menuCard"
+                android:id="@+id/menuProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
@@ -192,6 +192,7 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_margin="8dp"
+
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp">
 
