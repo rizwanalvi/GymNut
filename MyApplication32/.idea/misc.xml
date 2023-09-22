@@ -5,14 +5,16 @@
       <map>
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/drawable/ic_baseline_fitness_center_24.xml" value="0.2565" />
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/activity_chart.xml" value="0.25" />
-        <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/activity_dashboard.xml" value="0.1" />
+        <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/activity_dashboard.xml" value="0.33" />
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/activity_info.xml" value="0.18" />
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/activity_main_frag.xml" value="0.25" />
+        <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/activity_micro_nunt.xml" value="0.1" />
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/activity_nutrition_analysis.xml" value="0.14285714285714285" />
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/activity_splash.xml" value="0.18085106382978725" />
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/activity_sub.xml" value="0.1" />
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/custom_list_nutrition_analysis.xml" value="0.21822916666666667" />
+        <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/login_dialog.xml" value="0.1" />
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/nutanalysis_list.xml" value="0.14235055724417425" />
         <entry key="..\:/Users/rizwan/AndroidStudioProjects/MyApplication32/app/src/main/res/layout/register_layout.xml" value="0.1" />
       </map>

@@ -22,7 +22,7 @@ public class DashboardActivity extends AppCompatActivity {
     TextView _txtMaintance,_txtName;
     double _BMR =0.0;
     double _BMI =0.0;
-    CardView _menuMealLog,_menuNutAnalysis,_menuProfile = null;
+    CardView _menuMealLog,_menuNutAnalysis,_menuProfile,_menuNuMac = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,14 @@ public class DashboardActivity extends AppCompatActivity {
         db.execSQL("CREATE TABLE IF NOT EXISTS Nutrition(NUTID INTEGER PRIMARY KEY AUTOINCREMENT,FOODNAME TEXT,PROTIEN FLOAT,CARB FLOAT,FAT FLOAT,CAL FLOAT,SERVING FLOAT,FIBER FLOAT,SUGAR FLOAT,DT TEXT,MEALTYPE TEXT)");
         _menuMealLog = findViewById(R.id.menuMealLog);
         _menuProfile = findViewById(R.id.menuProfile);
-
+        _menuNuMac = findViewById(R.id.menuNuMac);
+        _menuNuMac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent _mainAct = new Intent(DashboardActivity.this,MicroNuntActivity.class);
+                startActivity(_mainAct);
+            }
+        });
         _menuNutAnalysis = findViewById(R.id.menuNutAnalysis);
         _menuProfile.setOnClickListener(new View.OnClickListener() {
             @Override
